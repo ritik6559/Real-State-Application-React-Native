@@ -2,6 +2,7 @@ import { SplashScreen, Stack } from "expo-router";
 import "./global.css";
 import { useFonts } from 'expo-font';
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
 
@@ -24,5 +25,8 @@ export default function RootLayout() {
       return null;
   }
 
-  return <Stack />;
+  return <GestureHandlerRootView>
+    <Stack screenOptions={{ headerShown: false }} />
+
+    </GestureHandlerRootView>;
 }
