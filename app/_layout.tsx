@@ -3,6 +3,7 @@ import "./global.css";
 import { useFonts } from 'expo-font';
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import GlobalProvider from "@/lib/global-provider";
 
 export default function RootLayout() {
 
@@ -25,8 +26,11 @@ export default function RootLayout() {
       return null;
   }
 
-  return <GestureHandlerRootView>
-    <Stack screenOptions={{ headerShown: false }} />
-
-    </GestureHandlerRootView>;
+  return (
+      <GestureHandlerRootView>
+        <GlobalProvider>
+            <Stack screenOptions={{ headerShown: false }} />
+        </GlobalProvider>
+      </GestureHandlerRootView>
+  )
 }
