@@ -6,8 +6,6 @@ import { ActivityIndicator, SafeAreaView } from "react-native";
 export default function AppLayout() {
     const { loading, isLoggedIn } = useGlobalContext();
 
-
-
     if(loading){
         return (
             <SafeAreaView className="bg-white h-full flex justify-center items-center" >
