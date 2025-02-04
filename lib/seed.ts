@@ -5,7 +5,7 @@ import {
   galleryImages,
   propertiesImages,
   reviewImages,
-} from "./data";
+} from "./data"
 
 const COLLECTIONS = {
   AGENT: config.agentsCollectionId,
@@ -16,24 +16,21 @@ const COLLECTIONS = {
 
 const propertyTypes = [
   "House",
-  "Townhomes",
-  "Condos",
-  "Duplexes",
-  "Studios",
+  "Townhouse",
+  "Condo",
+  "Duplex",
+  "Studio",
   "Villa",
-  "Apartments",
-  "Others",
+  "Apartment",
+  "Other",
 ];
 
 const facilities = [
   "Laundry",
-  "Car Parking",
-  "Sports Center",
-  "Cutlery",
+  "Parking",
   "Gym",
-  "Swimming pool",
   "Wifi",
-  "Pet Center",
+  "Pet-friendly",
 ];
 
 function getRandomSubset<T>(
@@ -158,6 +155,7 @@ async function seed() {
             ];
 
       const property = await databases.createDocument(
+  
         config.databaseId!,
         COLLECTIONS.PROPERTY!,
         ID.unique(),
