@@ -10,7 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Index() {
   return (
     <SafeAreaView className='bg-white h-full' >
-    <ScrollView>
+    
         <View className='px-5' >
             <View className='flex flex-row items-center justify-between mt-5' >
                 <View className='flex flex-row items-center'>
@@ -56,7 +56,7 @@ export default function Index() {
 
         </View>
         </View>
-        </ScrollView>
+        
         </SafeAreaView>
   );
 }
