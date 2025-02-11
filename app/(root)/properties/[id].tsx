@@ -5,7 +5,6 @@ import { useAppwrite } from '@/lib/useAppwrite';
 import { getPropertyById } from '@/lib/appwrite';
 import { ScrollView } from 'react-native-gesture-handler';
 import images from '@/constants/images';
-import { routeToScreen } from 'expo-router/build/useScreens';
 import icons from '@/constants/icons';
 
 const Property  = () => {
@@ -52,7 +51,6 @@ const Property  = () => {
                     >
                        <Image source={ icons.backArrow } className='size-7' /> 
                     </TouchableOpacity>
-
 
                     <View className='flex flex-row items-center gap-3' >
                         <Image source={ icons.heart } className='size-7' tintColor={"#191d31"} />
