@@ -1,50 +1,146 @@
-# Welcome to your Expo app 👋
+# 🏡 Real Estate App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern real estate mobile application built with **React Native** and **Expo**, leveraging **file-based routing** for navigation and **Appwrite** for authentication and database management.
 
-## Get started
+## ✨ Features
 
-1. Install dependencies
+- 🔒 **User Authentication** (Sign up, Login, Logout) using Appwrite
+- 🏠 **Browse Real Estate Listings** with images, details, and price
+- 🔍 **Search & Filter Properties** based on location, price, and type
+- 💄 **List Properties** for users to upload and manage their own listings
+- 🛠 **File-based Routing** for seamless navigation
 
-   ```bash
+## 🛠 Tech Stack
+
+- **React Native** (Expo for development & deployment)
+- **Appwrite** (Authentication & Database)
+- **React Navigation** (For file-based routing)
+- **Styling** (Tailwind CSS / Nativewind)
+
+## 👤 Screenshots
+
+![Home Screen](screenshots/screenshot1.png)
+
+
+
+## 📂 Project Structure
+
+```
+real_estate
+ ├── .git
+ ├── app
+ │   ├── (root)
+ │   │   ├── (tabs)
+ │   │   ├── properties
+ │   │   ├── _layout.tsx
+ │   ├── _layout.tsx
+ │   ├── global.css
+ │   ├── sign-in.tsx
+ ├── assets
+ ├── components
+ ├── constants
+ ├── lib
+ ├── repos
+ ├── screenshots
+ ├── .gitignore
+ ├── app.json
+ ├── babel.config.js
+ ├── image.d.ts
+ ├── metro.config.js
+ ├── nativewind-env.d.ts
+ ├── package-lock.json
+ ├── package.json
+ ├── README.md
+ ├── tailwind.config.js
+ └── tsconfig.json
+```
+
+## 🏰 Installation & Setup
+
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/ritik6559/Real-State-Application-React-Native.git
+   cd Real-State-Application-React-Native
+   ```
+
+2. **Install dependencies:**
+
+   ```sh
    npm install
    ```
 
-2. Start the app
+3. **Set up Appwrite:**
 
-   ```bash
-    npx expo start
+   - Create a project on [Appwrite](https://appwrite.io/)
+   - Enable authentication (OAuth(Google), Email & Password if needed)
+   - Set up a database for property listings
+   - Configure storage for property images
+   - Add your Appwrite credentials to a `.env` file:
+     ```env
+     EXPO_PUBLIC_APPWRITE_PROJECT_ID=your_project_id
+     EXPO_PUBLIC_APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1
+     EXPO_PUBLIC_APPWRITE_DATABASE_ID=your_database_id
+     EXPO_PUBLIC_APPWRITE_COLLECTION_ID=your_collection_id
+     ```
+
+4. **Start the development server:**
+
+   ```sh
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## 🏠 Code Example
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Here is a simple example of how properties are fetched from Appwrite:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+```tsx
+export async function getProperties({
+  filter,
+  query,
+  limit,
+}: {
+  filter: string;
+  query: string;
+  limit?: number;
+}) {
+  try {
+    const buildQuery = [Query.orderDesc("$createdAt")];
 
-## Get a fresh project
+    if (filter && filter !== "All")
+      buildQuery.push(Query.equal("type", filter));
 
-When you're ready, run:
+    if (query)
+      buildQuery.push(
+        Query.or([
+          Query.search("name", query),
+          Query.search("address", query),
+          Query.search("type", query),
+        ])
+      );
 
-```bash
-npm run reset-project
+    if (limit) buildQuery.push(Query.limit(limit));
+
+    const result = await databases.listDocuments(
+      config.databaseId!,
+      config.propertiesCollectionId!,
+      buildQuery
+    );
+
+    return result.documents;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🛡 Contributing
 
-## Learn more
+Contributions are welcome! Feel free to submit a pull request or open an issue.
 
-To learn more about developing your project with Expo, look at the following resources:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 🌟 Show Some Love
 
-## Join the community
+If you like this project, give it a ⭐ on [GitHub](https://github.com/ritik6559/Real-State-Application-React-Native)!
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
